@@ -1,0 +1,152 @@
+/* ── HoT Companion — pixel-art theme tokens ─────────────────────────────────
+   Shared HoT design language with a retro/pixel treatment inspired by the
+   Omarchy Linux distro: warm dark base, vivid accent palette, hard edges, and
+   chunky *un-blurred* offset shadows that read as drawn pixels. CSP blocks web
+   fonts, so the "pixel" feel comes from blocky geometry + a monospace stack. */
+
+:root {
+  /* Base — warm, slightly purple-leaning charcoal (Omarchy's cozy dark). */
+  --bg: #14111a;
+  --bg-2: #0d0b12;
+  --panel: #1d1826;
+  --panel-2: #261f31;
+  --border: #3a3147;
+  --border-bright: #554a66;
+
+  /* Text */
+  --text: #ece6f5;
+  --text-dim: #9a8fb0;
+  --text-faint: #6b6280;
+
+  /* HoT accent — orange, kept as the brand anchor. */
+  --accent: #ff7a45;
+  --accent-bright: #ff9d6e;
+  --accent-dim: #6e3115;
+
+  /* Retro companion palette. */
+  --c-red: #ff5277;
+  --c-amber: #ffcb47;
+  --c-green: #5ddf7a;
+  --c-cyan: #4ad7e0;
+  --c-blue: #6aa6ff;
+  --c-violet: #b98cff;
+  --c-pink: #ff8fd0;
+
+  /* Semantic */
+  --ok: #5ddf7a;
+  --warn: #ffcb47;
+  --err: #ff5277;
+
+  /* Pixel geometry — zero radius, chunky borders, stepped shadows. */
+  --radius: 0px;
+  --px: 2px;
+  --shadow-hard: 3px 3px 0 0 var(--bg-2);
+  --shadow-hard-accent: 3px 3px 0 0 var(--accent-dim);
+
+  /* Type — blocky monospace; pixel-snapped sizes. */
+  --mono: 'SF Mono', 'DejaVu Sans Mono', ui-monospace, 'Menlo', 'Consolas', monospace;
+  --fs-xs: 10px;
+  --fs-sm: 11px;
+  --fs-md: 13px;
+  --fs-lg: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    linear-gradient(var(--bg-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-2) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+  -webkit-font-smoothing: none;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--bg-2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-bright);
+}
+
+/* Shared blocky button. */
+.btn {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--panel-2);
+  border: var(--px) solid var(--accent);
+  border-radius: var(--radius);
+  padding: 5px 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow-hard);
+  transition: transform 0.04s steps(2), background 0.04s;
+}
+.btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--bg-2);
+}
+.btn:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 0 var(--bg-2);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.btn.ghost {
+  color: var(--text-dim);
+  border-color: var(--border-bright);
+  box-shadow: none;
+}
+.btn.ghost:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--panel-2);
+  border-color: var(--text-dim);
+}
+
+/* Blocky inputs + selects. */
+.input {
+  font-family: var(--mono);
+  font-size: var(--fs-md);
+  color: var(--text);
+  background: var(--bg-2);
+  border: var(--px) solid var(--border-bright);
+  border-radius: var(--radius);
+  padding: 5px 8px;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--accent);
+}
+select.input {
+  cursor: pointer;
+}
