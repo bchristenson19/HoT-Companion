@@ -1,5 +1,8 @@
 # HoT Companion
 
+[![Download](https://img.shields.io/badge/Download-macOS%20(Apple%20Silicon)-ff7a45?style=for-the-badge&logo=apple)](https://github.com/wonderbrad777/HoT-Companion/releases/latest)
+[![Latest release](https://img.shields.io/github/v/release/wonderbrad777/HoT-Companion?include_prereleases&label=latest&color=5ddf7a)](https://github.com/wonderbrad777/HoT-Companion/releases)
+
 A **bulk editor for [Bitfocus Companion](https://bitfocus.io/companion) config files**. Part of the HoT app suite — Electron + React + TypeScript + Jotai — with the pixel-art aesthetic inspired by the Omarchy Linux distro.
 
 Companion's own editor edits one button at a time, which is painful for large, repetitive surfaces (think a 32×32 routing panel where every button differs only by an index). HoT Companion opens a `.companionconfig` export, lets you mass-edit hundreds of buttons in seconds, and writes a config you re-import into Companion.
@@ -10,7 +13,19 @@ Companion's own editor edits one button at a time, which is painful for large, r
 > config — so the powerful bulk path is the file round-trip. (Live style-push is
 > a possible future addition.)
 
+## Download
+
+Grab the latest build from the [**Releases**](https://github.com/wonderbrad777/HoT-Companion/releases/latest) page.
+
+- **Apple Silicon (arm64) only** for now — no Intel/universal build yet.
+- The build is **unsigned**, so on first launch macOS Gatekeeper will block it. Either **right-click → Open** and confirm, or run:
+  ```bash
+  xattr -dr com.apple.quarantine "/Applications/HoT Companion.app"
+  ```
+
 ## Features
+
+- **Button details** — select a button to see and edit *everything it does*: each step's actions (When pressed / released / rotated) and its feedbacks, with the connection, type, and every setting. Add / remove / reorder / duplicate, plus a raw-JSON escape hatch per item.
 
 - **Buttons** — a spreadsheet of every button across every page. Edit text, BG/FG color, font size, and alignment inline. Multi-select (click / ⌘-click / shift-range) and **fill** one value across the whole selection. Filter by page or free text.
 - **Find & Replace** — scan string values in button text, action options, and feedback options; literal or regex; preview every match before applying. The fast way to swap a connection ID, IP, or variable that appears in dozens of buttons.
