@@ -1,6 +1,6 @@
 # HoT Companion
 
-[![Download](https://img.shields.io/badge/Download-macOS%20(Apple%20Silicon)-ff7a45?style=for-the-badge&logo=apple)](https://github.com/wonderbrad777/HoT-Companion/releases/latest)
+[![Download](https://img.shields.io/badge/Download-macOS%20(Apple%20Silicon)-ff7a45?style=for-the-badge&logo=apple)](https://github.com/wonderbrad777/HoT-Companion/releases)
 [![Latest release](https://img.shields.io/github/v/release/wonderbrad777/HoT-Companion?include_prereleases&label=latest&color=5ddf7a)](https://github.com/wonderbrad777/HoT-Companion/releases)
 
 A **bulk editor for [Bitfocus Companion](https://bitfocus.io/companion) config files**. Part of the HoT app suite — Electron + React + TypeScript + Jotai — with the pixel-art aesthetic inspired by the Omarchy Linux distro.
@@ -15,7 +15,7 @@ Companion's own editor edits one button at a time, which is painful for large, r
 
 ## Download
 
-Grab the latest build from the [**Releases**](https://github.com/wonderbrad777/HoT-Companion/releases/latest) page.
+Grab the latest build from the [**Releases**](https://github.com/wonderbrad777/HoT-Companion/releases) page.
 
 - **Apple Silicon (arm64) only** for now — no Intel/universal build yet.
 - The build is **unsigned**, so on first launch macOS Gatekeeper will block it. Either **right-click → Open** and confirm, or run:
@@ -82,12 +82,13 @@ src/
 │   ├── companion/
 │   │   ├── codec.ts          # gunzip/gzip ↔ JSON (round-trip safe)
 │   │   ├── model.ts          # read/write style fields across config versions
-│   │   └── normalize.ts      # flatten controls → rows; replace; stamp (PURE)
+│   │   ├── normalize.ts      # flatten controls → rows; replace; stamp (PURE)
+│   │   └── detail.ts         # read/edit actions & feedbacks (PURE)
 │   ├── storage/store.ts      # settings + saved templates (userData JSON)
 │   └── types.ts              # shared contract (main ↔ renderer)
 ├── preload/               # typed window.api bridge
 └── renderer/              # React UI (Jotai state, pixel-art theme)
-    └── src/components/       # ButtonsTab, ReplaceTab, TemplatesTab
+    └── src/components/       # ButtonsTab, DetailPanel, ReplaceTab, TemplatesTab
 ```
 
 `companion/model.ts` and `companion/normalize.ts` are **pure** (no Node/Electron
