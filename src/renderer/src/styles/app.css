@@ -240,6 +240,13 @@
 .step-text strong {
   color: var(--text);
 }
+.welcome-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .welcome-open {
   margin-top: 4px;
 }
