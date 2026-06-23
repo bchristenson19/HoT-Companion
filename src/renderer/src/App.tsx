@@ -16,6 +16,7 @@ import { ButtonsTab } from './components/ButtonsTab'
 import { ReplaceTab } from './components/ReplaceTab'
 import { TemplatesTab } from './components/TemplatesTab'
 import { Toast } from './components/Toast'
+import { PepperMark } from './components/PepperMark'
 import { ICON } from './lib/glyphs'
 import { COLORWAYS } from './lib/colorways'
 import type { Tab } from './state/atoms'
@@ -49,6 +50,7 @@ export function App(): JSX.Element {
     <div className="app">
       <header className="topbar">
         <div className="logo">
+          <PepperMark />
           <span className="hot">HoT</span> COMPANION
           <span className="model">BULK</span>
         </div>

@@ -28,6 +28,10 @@ const api = {
     ipcRenderer.invoke('store:save-template', tpl),
   deleteTemplate: (id: string): Promise<ButtonTemplate[]> =>
     ipcRenderer.invoke('store:delete-template', id),
+
+  // App chrome
+  setDockIcon: (dataUrl: string): Promise<void> =>
+    ipcRenderer.invoke('app:set-dock-icon', dataUrl),
 }
 
 export type CompanionApi = typeof api

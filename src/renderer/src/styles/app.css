@@ -33,6 +33,11 @@
   gap: 6px;
   text-shadow: 2px 2px 0 var(--bg-2);
 }
+.logo .pepper-mark {
+  align-self: center;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
 .logo .hot {
   color: var(--accent);
 }

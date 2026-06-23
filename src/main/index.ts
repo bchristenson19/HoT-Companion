@@ -3,7 +3,7 @@
 // memory and sends it back when saving; the main process only opens/saves files
 // and persists templates + recent-file metadata.
 
-import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog, nativeImage } from 'electron'
 import { basename, join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import type {
@@ -142,6 +142,20 @@ function registerIpc(): void {
   ipcMain.handle('store:get-templates', (): ButtonTemplate[] => getTemplates())
   ipcMain.handle('store:save-template', (_e, tpl: ButtonTemplate) => saveTemplate(tpl))
   ipcMain.handle('store:delete-template', (_e, id: string) => deleteTemplate(id))
+
+  // Recolor the macOS Dock icon to match the renderer's active colorway. The
+  // renderer draws the pixel-art icon to a PNG data URL and sends it here. This
+  // updates the Dock live and, because the renderer re-pushes on mount, on the
+  // next launch too. No-op off macOS (no Dock).
+  ipcMain.handle('app:set-dock-icon', (_e, dataUrl: string) => {
+    if (process.platform !== 'darwin' || !app.dock) return
+    try {
+      const img = nativeImage.createFromDataURL(dataUrl)
+      if (!img.isEmpty()) app.dock.setIcon(img)
+    } catch (err) {
+      log('set-dock-icon failed:', (err as Error).message)
+    }
+  })
 }
 
 app.whenReady().then(() => {
