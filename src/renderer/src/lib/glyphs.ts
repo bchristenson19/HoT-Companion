@@ -11,6 +11,7 @@ export const ICON = {
   templates: '📋',
 
   // File actions
+  new: '📄',
   open: '📂',
   save: '💾',
   saveAs: '📤',

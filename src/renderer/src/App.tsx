@@ -11,7 +11,7 @@ import {
   hasConfigAtom,
   colorwayAtom,
 } from './state/atoms'
-import { useOpen, useSave, useLoadTemplates } from './state/actions'
+import { useOpen, useSave, useLoadTemplates, useCreateNew } from './state/actions'
 import { ButtonsTab } from './components/ButtonsTab'
 import { ReplaceTab } from './components/ReplaceTab'
 import { TemplatesTab } from './components/TemplatesTab'
@@ -35,6 +35,7 @@ export function App(): JSX.Element {
   const [colorway, setColorway] = useAtom(colorwayAtom)
   const open = useOpen()
   const save = useSave()
+  const createNew = useCreateNew()
   const loadTemplates = useLoadTemplates()
 
   useEffect(() => {
@@ -56,6 +57,9 @@ export function App(): JSX.Element {
         </div>
 
         <div className="file-bar">
+          <button className="btn ghost" onClick={createNew} title="Start a new blank config">
+            <span className="btn-icon">{ICON.new}</span> New
+          </button>
           <button className="btn" onClick={open} title="Open a .companionconfig file you exported from Companion">
             <span className="btn-icon">{ICON.open}</span> Open
           </button>
@@ -135,7 +139,7 @@ export function App(): JSX.Element {
 
       <main className="body">
         {!hasConfig ? (
-          <EmptyState onOpen={open} />
+          <EmptyState onOpen={open} onNew={createNew} />
         ) : (
           <>
             {tab === 'buttons' && <ButtonsTab />}
@@ -150,22 +154,22 @@ export function App(): JSX.Element {
   )
 }
 
-function EmptyState({ onOpen }: { onOpen: () => void }): JSX.Element {
+function EmptyState({ onOpen, onNew }: { onOpen: () => void; onNew: () => void }): JSX.Element {
   return (
     <div className="empty-state">
       <div className="welcome-card">
         <div className="welcome-icon">{ICON.buttons}</div>
         <h2 className="welcome-title">Bulk-edit your Companion buttons</h2>
         <p className="welcome-sub">
-          Open a config you exported from Companion, change lots of buttons at once, then
-          import it back.
+          Start from scratch or open a config you exported from Companion, change lots of buttons
+          at once, then import it back.
         </p>
 
         <ol className="welcome-steps">
           <li className="step">
             <span className="step-icon">{ICON.open}</span>
             <span className="step-text">
-              <strong>Open</strong> your exported config file
+              <strong>Open</strong> your exported config, or start a <strong>new</strong> blank one
             </span>
           </li>
           <li className="step">
@@ -182,9 +186,14 @@ function EmptyState({ onOpen }: { onOpen: () => void }): JSX.Element {
           </li>
         </ol>
 
-        <button className="btn welcome-open" onClick={onOpen}>
-          <span className="btn-icon">{ICON.open}</span> Open file
-        </button>
+        <div className="welcome-actions">
+          <button className="btn welcome-open" onClick={onNew}>
+            <span className="btn-icon">{ICON.new}</span> Start from scratch
+          </button>
+          <button className="btn ghost welcome-open" onClick={onOpen}>
+            <span className="btn-icon">{ICON.open}</span> Open existing file
+          </button>
+        </div>
 
         <p className="welcome-hint">
           {ICON.tip} In Companion: Settings → Import / Export → Export Full Configuration

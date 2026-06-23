@@ -20,6 +20,8 @@ import type {
   ReplaceMatch,
   ButtonTemplate,
   ControlLocation,
+  RawConfig,
+  LoadedConfig,
 } from '@shared/types'
 import { applyCellEdit, refreshRow, flatten, metaOf } from '@shared/companion/normalize'
 import { previewReplace, applyReplace, captureControl, stampTemplate } from '@shared/companion/normalize'
@@ -108,6 +110,39 @@ export function useSave(): (saveAs?: boolean) => Promise<void> {
     },
     [loaded, setLoaded, setDirty, toast],
   )
+}
+
+export function useCreateNew(): () => void {
+  const setLoaded = useSetAtom(loadedAtom)
+  const setRows = useSetAtom(rowsAtom)
+  const setDirty = useSetAtom(dirtyAtom)
+  const setSelected = useSetAtom(selectedIdsAtom)
+  return useCallback(() => {
+    const raw: RawConfig = {
+      version: null,
+      type: 'full',
+      companionBuild: null,
+      pages: { '1': { name: 'Page 1', controls: {} } },
+      instances: {},
+      triggers: {},
+      custom_variables: {},
+      surfaces: {},
+      imageLibrary: {},
+    }
+    const rows = flatten(raw)
+    const loaded: LoadedConfig = {
+      path: '',
+      fileName: 'untitled.companionconfig',
+      meta: metaOf(raw, rows.length),
+      raw,
+      rows,
+      connections: {},
+    }
+    setLoaded(loaded)
+    setRows(rows)
+    setSelected(new Set())
+    setDirty(true)
+  }, [setLoaded, setRows, setSelected, setDirty])
 }
 
 // ── Cell edits ──────────────────────────────────────────────────────────────
@@ -258,7 +293,6 @@ export { metaOf }
 // a tick so the panel re-renders the freshly-mutated raw.
 
 import { detailTickAtom } from './atoms'
-import type { RawConfig } from '@shared/types'
 
 export function useDetailEdit(): {
   raw: RawConfig | null
