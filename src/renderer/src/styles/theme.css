@@ -51,6 +51,144 @@
   --fs-lg: 16px;
 }
 
+/* ── Curated colorways ───────────────────────────────────────────────────────
+   Each block overrides the palette tokens; geometry/type tokens stay shared.
+   Applied via <html data-colorway="<key>"> from the renderer. The default
+   (Omarchy) is the :root block above. The accent palette (--c-*) is kept
+   meaningful per theme since it color-codes data in the grid/detail panels. */
+
+/* Game Boy — classic 4-shade DMG green, monochrome-leaning. */
+[data-colorway='gameboy'] {
+  --bg: #0f380f;
+  --bg-2: #081c08;
+  --panel: #163d16;
+  --panel-2: #245724;
+  --border: #306230;
+  --border-bright: #4a7a4a;
+
+  --text: #9bbc0f;
+  --text-dim: #6b8c0f;
+  --text-faint: #4a6b1a;
+
+  --accent: #9bbc0f;
+  --accent-bright: #c4d62a;
+  --accent-dim: #2a4a0a;
+
+  --c-red: #8bac0f;
+  --c-amber: #c4d62a;
+  --c-green: #9bbc0f;
+  --c-cyan: #8bac0f;
+  --c-blue: #6b8c0f;
+  --c-violet: #c4d62a;
+  --c-pink: #9bbc0f;
+
+  --ok: #9bbc0f;
+  --warn: #c4d62a;
+  --err: #d68a2a;
+
+  --shadow-hard: 3px 3px 0 0 var(--bg-2);
+  --shadow-hard-accent: 3px 3px 0 0 var(--accent-dim);
+}
+
+/* Synthwave — deep indigo night, hot-pink + cyan neon. */
+[data-colorway='synthwave'] {
+  --bg: #1a1033;
+  --bg-2: #0e0820;
+  --panel: #241546;
+  --panel-2: #311c5e;
+  --border: #46286e;
+  --border-bright: #6a3fa0;
+
+  --text: #f3e9ff;
+  --text-dim: #b69ce0;
+  --text-faint: #7d63b0;
+
+  --accent: #ff2e97;
+  --accent-bright: #ff6ec0;
+  --accent-dim: #7a0f49;
+
+  --c-red: #ff5277;
+  --c-amber: #ffcb47;
+  --c-green: #5ddf7a;
+  --c-cyan: #4ad7e0;
+  --c-blue: #6aa6ff;
+  --c-violet: #b98cff;
+  --c-pink: #ff8fd0;
+
+  --ok: #5ddf7a;
+  --warn: #ffcb47;
+  --err: #ff5277;
+
+  --shadow-hard: 3px 3px 0 0 var(--bg-2);
+  --shadow-hard-accent: 3px 3px 0 0 var(--accent-dim);
+}
+
+/* Amber CRT — warm phosphor monitor on near-black. */
+[data-colorway='amber'] {
+  --bg: #1a1206;
+  --bg-2: #0d0903;
+  --panel: #241a09;
+  --panel-2: #33260d;
+  --border: #4a3815;
+  --border-bright: #6e5420;
+
+  --text: #ffd040;
+  --text-dim: #c79a2e;
+  --text-faint: #8a6a1f;
+
+  --accent: #ffb000;
+  --accent-bright: #ffd040;
+  --accent-dim: #6e4a00;
+
+  --c-red: #ff7a2a;
+  --c-amber: #ffd040;
+  --c-green: #d0c020;
+  --c-cyan: #e0b840;
+  --c-blue: #c79a2e;
+  --c-violet: #ffb000;
+  --c-pink: #ff9a40;
+
+  --ok: #d0c020;
+  --warn: #ffd040;
+  --err: #ff5a2a;
+
+  --shadow-hard: 3px 3px 0 0 var(--bg-2);
+  --shadow-hard-accent: 3px 3px 0 0 var(--accent-dim);
+}
+
+/* Nord — cool, muted arctic palette (the one soft-edged theme). */
+[data-colorway='nord'] {
+  --bg: #2e3440;
+  --bg-2: #242933;
+  --panel: #3b4252;
+  --panel-2: #434c5e;
+  --border: #4c566a;
+  --border-bright: #616e88;
+
+  --text: #eceff4;
+  --text-dim: #b8c0d0;
+  --text-faint: #7b8494;
+
+  --accent: #88c0d0;
+  --accent-bright: #8fbcbb;
+  --accent-dim: #3b5560;
+
+  --c-red: #bf616a;
+  --c-amber: #ebcb8b;
+  --c-green: #a3be8c;
+  --c-cyan: #88c0d0;
+  --c-blue: #81a1c1;
+  --c-violet: #b48ead;
+  --c-pink: #d08aa8;
+
+  --ok: #a3be8c;
+  --warn: #ebcb8b;
+  --err: #bf616a;
+
+  --shadow-hard: 3px 3px 0 0 var(--bg-2);
+  --shadow-hard-accent: 3px 3px 0 0 var(--accent-dim);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

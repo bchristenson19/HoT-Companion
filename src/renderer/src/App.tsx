@@ -9,6 +9,7 @@ import {
   loadedAtom,
   dirtyAtom,
   hasConfigAtom,
+  colorwayAtom,
 } from './state/atoms'
 import { useOpen, useSave, useLoadTemplates } from './state/actions'
 import { ButtonsTab } from './components/ButtonsTab'
@@ -16,6 +17,7 @@ import { ReplaceTab } from './components/ReplaceTab'
 import { TemplatesTab } from './components/TemplatesTab'
 import { Toast } from './components/Toast'
 import { ICON } from './lib/glyphs'
+import { COLORWAYS } from './lib/colorways'
 import type { Tab } from './state/atoms'
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
@@ -29,6 +31,7 @@ export function App(): JSX.Element {
   const loaded = useAtomValue(loadedAtom)
   const dirty = useAtomValue(dirtyAtom)
   const hasConfig = useAtomValue(hasConfigAtom)
+  const [colorway, setColorway] = useAtom(colorwayAtom)
   const open = useOpen()
   const save = useSave()
   const loadTemplates = useLoadTemplates()
@@ -36,6 +39,11 @@ export function App(): JSX.Element {
   useEffect(() => {
     loadTemplates()
   }, [loadTemplates])
+
+  // Apply the active colorway to <html> so theme.css overrides take effect.
+  useEffect(() => {
+    document.documentElement.setAttribute('data-colorway', colorway)
+  }, [colorway])
 
   return (
     <div className="app">
@@ -88,6 +96,25 @@ export function App(): JSX.Element {
           ) : (
             <span className="file-meta">No file open</span>
           )}
+        </div>
+
+        <div className="colorways" title="App color theme">
+          {COLORWAYS.map((c) => (
+            <button
+              key={c.key}
+              className={`colorway-btn ${colorway === c.key ? 'active' : ''}`}
+              onClick={() => setColorway(c.key)}
+              title={c.name}
+              aria-label={`${c.name} theme`}
+            >
+              <span className="cw-swatches">
+                <span style={{ background: c.swatch[0] }} />
+                <span style={{ background: c.swatch[1] }} />
+                <span style={{ background: c.swatch[2] }} />
+              </span>
+              <span className="cw-name">{c.name}</span>
+            </button>
+          ))}
         </div>
       </header>
 

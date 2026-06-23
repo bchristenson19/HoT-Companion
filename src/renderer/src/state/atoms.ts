@@ -10,10 +10,40 @@ import type {
   ButtonTemplate,
   EditableField,
 } from '@shared/types'
+import { DEFAULT_COLORWAY, isColorway } from '../lib/colorways'
 
 export type Tab = 'buttons' | 'replace' | 'templates'
 
 export const tabAtom = atom<Tab>('buttons')
+
+// ── Colorway (persisted to localStorage, applied to <html data-colorway>) ────
+const COLORWAY_KEY = 'hot-companion:colorway'
+
+function readColorway(): string {
+  try {
+    const v = localStorage.getItem(COLORWAY_KEY)
+    if (v && isColorway(v)) return v
+  } catch {
+    /* ignore */
+  }
+  return DEFAULT_COLORWAY
+}
+
+const colorwayBaseAtom = atom<string>(readColorway())
+
+/** Active colorway. Writing it persists to localStorage; the App effect mirrors
+ *  it onto <html data-colorway> so the CSS overrides in theme.css take effect. */
+export const colorwayAtom = atom(
+  (get) => get(colorwayBaseAtom),
+  (_get, set, value: string) => {
+    set(colorwayBaseAtom, value)
+    try {
+      localStorage.setItem(COLORWAY_KEY, value)
+    } catch {
+      /* ignore persistence failures */
+    }
+  },
+)
 
 // ── Loaded document ─────────────────────────────────────────────────────────
 export const loadedAtom = atom<LoadedConfig | null>(null)
