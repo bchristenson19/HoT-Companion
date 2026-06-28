@@ -25,6 +25,13 @@ import {
 } from '@main/storage/store'
 import { log } from '@main/logger'
 
+// Set the app name before anything else initializes. In dev/preview the app
+// runs inside the generic Electron.app bundle, so app.name defaults to
+// "Electron" — which is what the macOS menu bar and Dock tooltip display.
+// Packaged builds get the name from electron-builder's productName, but this
+// covers `npm run dev` / `npm start` too.
+app.setName('HoT Companion')
+
 // The codec must remember whether a file was gzipped so we can write it back in
 // the same container. Keyed by absolute path.
 const gzipByPath = new Map<string, boolean>()
